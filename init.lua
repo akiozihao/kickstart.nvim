@@ -189,6 +189,7 @@ vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left wind
 vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
+vim.keymap.set('n', '<A-<>', '<C-w><S-,>', { desc = 'Decrease width' })
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
@@ -761,6 +762,18 @@ require('lazy').setup({
       local cmp = require 'cmp'
       local luasnip = require 'luasnip'
       luasnip.config.setup {}
+      luasnip.config.set_config {
+        history = true,
+        updateevents = 'TextChanged,TextChangedI',
+        override_builtin = true,
+      }
+      vim.keymap.set({ 'i', 's' }, '<c-k>', function()
+        return vim.snippet.active { direction = 1 } and vim.snippet.jump(1)
+      end, { silent = true })
+
+      vim.keymap.set({ 'i', 's' }, '<c-j>', function()
+        return vim.snippet.active { direction = -1 } and vim.snippet.jump(-1)
+      end, { silent = true })
 
       cmp.setup {
         snippet = {
