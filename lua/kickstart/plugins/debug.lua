@@ -24,6 +24,7 @@ return {
     -- Add your own debuggers here
     -- 'leoluz/nvim-dap-go',
     'theHamsta/nvim-dap-virtual-text',
+    'mfussenegger/nvim-dap-python',
   },
   -- keys = function(_, keys)
   --   local dap = require 'dap'
@@ -96,7 +97,7 @@ return {
     vim.keymap.set('n', '<space>gb', dap.run_to_cursor)
 
     -- Eval var under cursor
-    vim.keymap.set('n', '<space>?', function()
+    vim.keymap.set('n', '<space>.', function()
       require('dapui').eval(nil, { enter = true })
     end)
     vim.keymap.set('n', '<F1>', dap.continue)
