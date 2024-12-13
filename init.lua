@@ -857,7 +857,13 @@ require('lazy').setup({
     end,
   },
   { 'catppuccin/nvim', name = 'catppuccin', priority = 1000 },
-
+  {
+    'loctvl842/monokai-pro.nvim',
+    config = function()
+      require('monokai-pro').setup()
+    end,
+    priority = 1000,
+  },
   { -- You can easily change to a different colorscheme.
     -- Change the name of the colorscheme plugin below, and then
     -- change the command in the config to whatever the name of that colorscheme is.
