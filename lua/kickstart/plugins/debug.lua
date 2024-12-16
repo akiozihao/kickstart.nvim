@@ -107,7 +107,14 @@ return {
     vim.keymap.set('n', '<F5>', dap.step_back)
     vim.keymap.set('n', '<F12>', dap.restart)
     vim.keymap.set('n', '<F7>', dap.close)
-
+    vim.keymap.set('n', '<F8>', dapui.toggle)
+    vim.keymap.set('n', '<F6>', function()
+      -- (Re-)reads launch.json if present
+      if vim.fn.filereadable '.vscode/launch.json' then
+        require('dap.ext.vscode').load_launchjs(nil, { cpptools = { 'c', 'cpp' } })
+      end
+      require('dap').continue()
+    end)
     dap.listeners.before.attach.dapui_config = function()
       dapui.open()
     end
