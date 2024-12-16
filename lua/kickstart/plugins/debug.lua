@@ -26,28 +26,59 @@ return {
     'theHamsta/nvim-dap-virtual-text',
     'mfussenegger/nvim-dap-python',
   },
-  -- keys = function(_, keys)
-  --   local dap = require 'dap'
-  --   local dapui = require 'dapui'
-  --   return {
-  --     -- Basic debugging keymaps, feel free to change to your liking!
-  --     { '<F5>', dap.continue, desc = 'Debug: Start/Continue' },
-  --     { '<F1>', dap.step_into, desc = 'Debug: Step Into' },
-  --     { '<F2>', dap.step_over, desc = 'Debug: Step Over' },
-  --     { '<F3>', dap.step_out, desc = 'Debug: Step Out' },
-  --     { '<leader>b', dap.toggle_breakpoint, desc = 'Debug: Toggle Breakpoint' },
-  --     {
-  --       '<leader>B',
-  --       function()
-  --         dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ')
-  --       end,
-  --       desc = 'Debug: Set Breakpoint',
-  --     },
-  --     -- Toggle to see last session result. Without this, you can't see session output in case of unhandled exception.
-  --     { '<F7>', dapui.toggle, desc = 'Debug: See last session result.' },
-  --     unpack(keys),
-  --   }
-  -- end,
+  keys = {
+    -- Basic debugging keymaps, feel free to change to your liking!
+    {
+      '<F5>',
+      function()
+        require('dap').continue()
+      end,
+      desc = 'Debug: Start/Continue',
+    },
+    {
+      '<F1>',
+      function()
+        require('dap').step_into()
+      end,
+      desc = 'Debug: Step Into',
+    },
+    {
+      '<F2>',
+      function()
+        require('dap').step_over()
+      end,
+      desc = 'Debug: Step Over',
+    },
+    {
+      '<F3>',
+      function()
+        require('dap').step_out()
+      end,
+      desc = 'Debug: Step Out',
+    },
+    {
+      '<leader>b',
+      function()
+        require('dap').toggle_breakpoint()
+      end,
+      desc = 'Debug: Toggle Breakpoint',
+    },
+    {
+      '<leader>B',
+      function()
+        require('dap').set_breakpoint(vim.fn.input 'Breakpoint condition: ')
+      end,
+      desc = 'Debug: Set Breakpoint',
+    },
+    -- Toggle to see last session result. Without this, you can't see session output in case of unhandled exception.
+    {
+      '<F7>',
+      function()
+        require('dapui').toggle()
+      end,
+      desc = 'Debug: See last session result.',
+    },
+  },
   config = function()
     local dap = require 'dap'
     local dapui = require 'dapui'
@@ -93,28 +124,28 @@ return {
         },
       },
     }
-    vim.keymap.set('n', '<space>b', dap.toggle_breakpoint)
-    vim.keymap.set('n', '<space>gb', dap.run_to_cursor)
+    -- vim.keymap.set('n', '<space>b', dap.toggle_breakpoint)
+    -- vim.keymap.set('n', '<space>gb', dap.run_to_cursor)
 
     -- Eval var under cursor
     vim.keymap.set('n', '<space>,', function()
       require('dapui').eval(nil, { enter = true })
     end)
-    vim.keymap.set('n', '<F1>', dap.continue)
-    vim.keymap.set('n', '<F2>', dap.step_into)
-    vim.keymap.set('n', '<F3>', dap.step_over)
-    vim.keymap.set('n', '<F4>', dap.step_out)
-    vim.keymap.set('n', '<F5>', dap.step_back)
-    vim.keymap.set('n', '<F12>', dap.restart)
-    vim.keymap.set('n', '<F7>', dap.close)
-    vim.keymap.set('n', '<F8>', dapui.toggle)
-    vim.keymap.set('n', '<F6>', function()
-      -- (Re-)reads launch.json if present
-      if vim.fn.filereadable '.vscode/launch.json' then
-        require('dap.ext.vscode').load_launchjs(nil, { cpptools = { 'c', 'cpp' } })
-      end
-      require('dap').continue()
-    end)
+    -- vim.keymap.set('n', '<F1>', dap.continue)
+    -- vim.keymap.set('n', '<F2>', dap.step_into)
+    -- vim.keymap.set('n', '<F3>', dap.step_over)
+    -- vim.keymap.set('n', '<F4>', dap.step_out)
+    -- vim.keymap.set('n', '<F5>', dap.step_back)
+    -- vim.keymap.set('n', '<F12>', dap.restart)
+    -- vim.keymap.set('n', '<F7>', dap.close)
+    -- vim.keymap.set('n', '<F8>', dapui.toggle)
+    -- vim.keymap.set('n', '<F6>', function()
+    --   -- (Re-)reads launch.json if present
+    --   if vim.fn.filereadable '.vscode/launch.json' then
+    --     require('dap.ext.vscode').load_launchjs(nil, { cpptools = { 'c', 'cpp' } })
+    --   end
+    --   require('dap').continue()
+    -- end)
     dap.listeners.before.attach.dapui_config = function()
       dapui.open()
     end
