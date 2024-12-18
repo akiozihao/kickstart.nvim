@@ -15,6 +15,9 @@ return {
           'rustc $fileName &&',
           '$dir/$fileNameWithoutExt',
         },
+        go = {
+          'go run',
+        },
         cpp = function()
           local c_base = {
             'cd $dir &&',
